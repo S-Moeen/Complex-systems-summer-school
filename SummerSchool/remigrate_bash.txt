@@ -1,0 +1,21 @@
+#!/bin/bash
+# should be placed in website folder.
+# can be runned from terminal with command
+#./remigrate_bash.txt
+printf "\n\n********************\nfirst status\n********************\n\n"
+python3 manage.py showmigrations
+cp 'main/migrations/0002_auto_20180812_1117.py' '.'
+printf "\n\n********************\ndrop old db\n********************\n\n"
+sudo -u $1 psql postgres -c "drop database summer_school"
+printf "\n\n********************\ncreate new db\n********************\n\n"
+sudo -u $1 psql postgres -c "CREATE DATABASE summer_school WITH OWNER = sad"
+printf "\n\n********************\ndeleting old migrations\n********************\n\n"
+find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+find . -path "*/migrations/*.pyc"  -delete
+printf "\n\n********************\nmakemigrations\n********************\n\n"
+python3 manage.py makemigrations
+mv '0002_auto_20180812_1117.py' 'main/migrations/'
+printf "\n\n********************\nmigrations\n********************\n\n"
+python3 manage.py showmigrations
+printf "\n\n********************\nmigrate\n********************\n\n"
+python3 manage.py migrate

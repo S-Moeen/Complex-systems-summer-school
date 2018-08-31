@@ -1,0 +1,575 @@
+{% load static staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>پنل مدیریت | مشخصات مشتری</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.4 -->
+    <link rel="stylesheet" href = '{% static "panel/bootstrap/css/bootstrap.min.css" %}' >
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons 2.0.0 -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href = '{% static "panel/dist/css/AdminLTE.min.css" %}' >
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href = '{% static "panel/dist/css/skins/_all-skins.min.css" %}' >
+    <!-- iCheck -->
+    <link rel="stylesheet" href = '{% static "panel/plugins/iCheck/flat/blue.css" %}' >
+    <!-- Morris chart -->
+    <link rel="stylesheet" href = '{% static "panel/plugins/morris/morris.css" %}' >
+    <!-- jvectormap -->
+    <link rel="stylesheet" href = '{% static "panel/plugins/jvectormap/jquery-jvectormap-1.2.2.css" %}' >
+    <!-- Date Picker -->
+    <link rel="stylesheet" href = '{% static "panel/plugins/datepicker/datepicker3.css" %}' >
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href = '{% static "panel/plugins/daterangepicker/daterangepicker-bs3.css" %}' >
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href = '{% static "panel/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" %}' >
+
+    <link rel="stylesheet" href = '{% static "panel/dist/fonts/fonts-fa.css" %}' >
+    <link rel="stylesheet" href = '{% static "panel/dist/css/bootstrap-rtl.min.css" %}' >
+    <link rel="stylesheet" href = '{% static "panel/dist/css/rtl.css" %}' >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="skin-blue sidebar-mini" dir = "rtl">
+    <div class="wrapper">
+
+        <header class="main-header">
+        <!-- Logo -->
+        <a href = '{% static "panel/pages/manager/user_panel_manager.html" %}'  class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini"><b>A</b>LT</span>
+          <!-- logo for regular state and mobile devices --><strong>پنل مدیریت</strong><br>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+          <!-- Sidebar toggle button-->
+          <a href = '{% static "panel/pages/manager/#" %}'  class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <!-- Messages: style can be found in dropdown.less-->
+              <li class="dropdown messages-menu">
+                <ul class="dropdown-menu">
+                  <li class="header">You have 4 messages</li>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                      <li><!-- start message -->
+                        <a href = '{% static "panel/pages/manager/#" %}' >
+                          <div class="pull-right">
+                            <img src = '{% static "panel/dist/img/user2-160x160.jpg" %}'  class="img-circle" alt="User Image">
+                          </div>
+                          <h4>
+                            Support Team
+                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                          </h4>
+                          <p>Why not buy a new awesome theme?</p>
+                        </a>
+                      </li><!-- end message -->
+                      <li>
+                        <a href = '{% static "panel/pages/manager/#" %}' >
+                          <div class="pull-right">
+                            <img src = '{% static "panel/dist/img/user3-128x128.jpg" %}'  class="img-circle" alt="User Image">
+                          </div>
+                          <h4>
+                            AdminLTE Design Team
+                            <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                          </h4>
+                          <p>Why not buy a new awesome theme?</p>
+                        </a>
+                      </li>
+                      <li>
+                        <a href = '{% static "panel/pages/manager/#" %}' >
+                          <div class="pull-right">
+                            <img src = '{% static "../dist/img/user4-128x128.jpg" %}'  class="img-circle" alt="User Image">
+                          </div>
+                          <h4>
+                            Developers
+                            <small><i class="fa fa-clock-o"></i> Today</small>
+                          </h4>
+                          <p>Why not buy a new awesome theme?</p>
+                        </a>
+                      </li>
+                      <li>
+                        <a href = '{% static "panel/pages/manager/#" %}' >
+                          <div class="pull-right">
+                            <img src = '{% static "../dist/img/user3-128x128.jpg" %}'  class="img-circle" alt="User Image">
+                          </div>
+                          <h4>
+                            Sales Department
+                            <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                          </h4>
+                          <p>Why not buy a new awesome theme?</p>
+                        </a>
+                      </li>
+                      <li>
+                        <a href = '{% static "panel/pages/manager/#" %}' >
+                          <div class="pull-right">
+                            <img src = '{% static "panel/dist/img/user4-128x128.jpg" %}'  class="img-circle" alt="User Image">
+                          </div>
+                          <h4>
+                            Reviewers
+                            <small><i class="fa fa-clock-o"></i> 2 days</small>
+                          </h4>
+                          <p>Why not buy a new awesome theme?</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="footer"><a href = '{% static "panel/pages/manager/#" %}' >See All Messages</a></li>
+                </ul>
+              </li>
+              <!-- Notifications: style can be found in dropdown.less -->
+              <li class="dropdown notifications-menu"><a href = '{% static "panel/pages/manager/#" %}'  class="dropdown-toggle" data-toggle="dropdown"> <em class="fa fa-bell-o"></em> <span class="label label-warning">۳</span> </a>
+                <ul class="dropdown-menu">
+                  <li class="header" allign = "center">شما ۳ اعلان جدید دارید.</li>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                      <li>
+                       <a href = '{% static "panel/pages/manager/#" %}' >
+                        <i class="fa fa-exclamation-triangle text-yellow"></i>
+                        <h7>
+                          یک گزارش خطا.
+                        </h7>
+						          </a>
+                      </li>
+                     
+                      <li>
+                       <a href = '{% static "panel/pages/manager/#" %}' >
+                        <i class="fa fa-credit-card text-red"></i>
+                        <h7>
+                          اعلان کمبود بودجه موسسه.
+                        </h7>
+						  </a>
+                      </li>
+                     <li>
+                       <a href = '{% static "panel/pages/manager/#" %}' >
+                        <i class="fa fa-exclamation-triangle text-yellow"></i>
+                        <h7>
+                          یک گزارش خطای دیگر
+                        </h7>
+						  </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="footer"><a href = '{% static "panel/pages/manager/#" %}' >مشاهدهٔ همه</a></li>
+                </ul>
+              </li>
+              <!-- Tasks: style can be found in dropdown.less -->
+              <!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown user user-menu" name = "user menu">
+                <a href = '{% static "panel/pages/manager/#" %}'  class="dropdown-toggle" data-toggle="dropdown">
+                  <img src = '{% static "panel/dist/img/logo-sapa.png" %}'  class="user-image" alt="User Image">
+                  <span class="hidden-xs">سپاا</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <img src = '{% static "panel/dist/img/logo-sapa.png" %}'  class="img-circle" alt="User Image">
+                    <<p>
+                      سپاا
+                    </p>>
+					</li>
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                      <a href = '{% static "panel/pages/manager/#" %}'  class="btn btn-default btn-flat" name = "logout">خروج از حساب کاربری</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar">
+          <!-- sidebar: style can be found in sidebar.less -->
+          <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+              <div class="pull-right image">
+                <img src = '{% static "panel/dist/img/logo-sapa.png" %}'  class="img-circle" alt="User Image">
+              </div>
+              <div class="pull-left info">
+               <p><a href = '{% static "panel/pages/manager/company_details.html" %}' >سپاا</a></p>
+              </div>
+            </div>
+            <!-- deleted "search form" -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+              <li class="treeview">
+                <a href = '{% static "panel/pages/manager/#" %}' >
+                <i class="glyphicon glyphicon-user"></i> <span>ویرایش مشخصات موسسه</span>
+                </a>
+                <ul class="treeview-menu">
+                  <li class="active"><a href = '{% static "panel/pages/manager/company_settings.html" %}' ><i class="glyphicon glyphicon-chevron-left"></i> ویرایش مشخصات</a></li>
+                  <li><a href = '{% static "panel/pages/manager/password_change.html" %}' ><i class="glyphicon glyphicon-chevron-left"></i>  تغییر رمز عبور مدیریت</a></li>
+                </ul>
+              </li>
+              <li> <a href = '{% static "panel/pages/manager/transaction_details.html" %}' > <em class="glyphicon glyphicon-credit-card"></em> <span>تراکنش‌های موسسه</span> </a> </li>
+              <li> <a href = '{% static "panel/pages/manager/people.html" %}' > <em class="fa fa-users"></em> <span>کارمندان</span> </a> </li>
+              <li> <a href = '{% static "panel/pages/manager/customers.html" %}' > <em class="fa fa-users"></em> <span>مشتریان</span> </a> </li>
+              <li> <a href = '{% static "panel/pages/manager/transaction_details.html" %}' > <em class="fa fa-comments"></em> <span>درخواست‌های تاییدنشده</span> </a> </li>
+              <li class="treeview">
+                <a href = '{% static "panel/pages/manager/#" %}' >
+                <i class="fa fa-money"></i>
+                  <span>کیف پول‌های موسسه</span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href = '{% static "panel/pages/manager/wallet_rial.html" %}' ><i class="glyphicon glyphicon-chevron-left"></i> کیف پول ریال</a></li>
+                  <li><a href = '{% static "panel/pages/manager/wallet_euro.html" %}' ><i class="glyphicon glyphicon-chevron-left"></i> کیف پول یورو</a></li>
+                  <li><a href = '{% static "panel/pages/manager/wallet_dollar.html" %}' ><i class="glyphicon glyphicon-chevron-left"></i> کیف پول دلار</a></li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <!-- /.sidebar -->
+        </aside>
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            مشخصات مشتری
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href = '{% static "panel/pages/manager/user_panel_manager.html" %}' ><i class="fa fa-dashboard"></i> پیشخوان</a></li>
+            <li><a href = '{% static "panel/pages/manager/customers.html" %}' ><i class="fa fa-users"></i>مشتریان</a></li>
+            <li>مشخصات مشتری</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
+              <div class = "col-md-3">
+            	<div class = "box">
+     				    <div class="box-header with-border">
+                  <h3>مشخصات اصلی</h3>
+                </div><!--box header-->
+                <div class = "box-body">
+                        <img src = '{% static "panel/dist/img/user2-160x160.jpg" %}'  class="user-image" alt="User Image">
+                  </div>
+                  <div class = "box-body">
+                    <h4>نام</h4>
+                    <small>محمد</small>
+              </div>
+              <div class = "box-body">
+                  <h4>نام خانوادگی</h4>
+                  <small>شریفی</small>
+            </div>
+            <div class = "box-body">
+                <h4>نام لاتین</h4>
+                <small>Mohammad</small>
+            </div>
+            <div class = "box-body">
+                <h4>نام خانوادگی لاتین</h4>
+                <small>Sharifi</small>
+              </div>
+              <div class = "box-body">
+                <h4>نام کاربری</h4>
+                <small>@customerusername</small>
+            </div>
+            </div>
+            </div>
+              <div class = "col-md-3">
+                  <div class = "box" allign = "center">
+                      <div class="box-header with-border">
+                       <h3>راه‌های ارتباطی</h3>
+                     </div>
+                      <div class = "box-body">
+                       <h4>آدرس ایمیل</h4>
+                       <small>useremai@gmail.com</small>
+                      </div>
+                      <div class = "box-body">
+                          <h4>شمارهٔ تماس</h4>
+                          <small>09379605628</small>
+                         </div>
+                   </div>
+                  <div class = "box" allign = "center">
+                     <div class="box-header with-border">
+                      <h3>اطلاعات مالی</h3>
+                    </div><!--box header-->
+                     <div class = "box-body">
+                      <h4>شمارهٔ حساب</h4>
+                      <small>100200 - 3040 - 50</small>
+                     </div>
+                  </div>
+                </div>
+                <div class = "col-md-6">
+                    <div class = "box">
+                      <div class = "box-header with-border">
+                          <h3>تراکنش‌ها</h3>
+                      </div>
+                      <div class = "box-body">
+                          <table id="table" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>شناسه تراکنش</th>
+                                    <th>نوع تراکنش</th>
+                                    <th>تاریخ تراکنش </th>
+                                  </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><a href = '{% static "panel/pages/manager/transaction_details.html" %}' >102030</a></td>
+                                <td>واریز به حساب خارجی</td>
+                                <td>1395 - 05 - 05</td>
+                              </tr>
+                            <tr>
+                                <td><a href = '{% static "panel/pages/manager/transaction_details.html" %}' >102030</a></td>
+                                <td>واریز به حساب خارجی</td>
+                                <td>1395 - 05 - 05</td>
+                              </tr>
+                              <tr>
+                                  <td><a href = '{% static "panel/pages/manager/transaction_details.html" %}' >102030</a></td>
+                                  <td>واریز به حساب خارجی</td>
+                                  <td>1395 - 05 - 05</td>
+                                </tr>
+                              </tbody>
+                              <tfoot>
+                                  <tr>
+                                      <th>شناسه تراکنش</th>
+                                      <th>نوع تراکنش</th>
+                                      <th>تاریخ تراکنش </th>
+                                  </tr>
+                                </tfoot>
+                          </table>
+                      </div>
+                    </div>
+                </div>
+          </div><!-- /.row -->
+
+
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+      <footer class="main-footer">
+        <div class="pull-left hidden-xs">
+          <b>Version</b> 2.2.0
+        </div>
+        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+      </footer>
+
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+          <li><a href = '{% static "panel/pages/manager/#control-sidebar-home-tab" %}'  data-toggle="tab"><i class="fa fa-home"></i></a></li>
+          <li><a href = '{% static "panel/pages/manager/#control-sidebar-settings-tab" %}'  data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <!-- Home tab content -->
+          <div class="tab-pane" id="control-sidebar-home-tab">
+            <h3 class="control-sidebar-heading">Recent Activity</h3>
+            <ul class="control-sidebar-menu">
+              <li>
+                <a href = '{% static "panel/pages/manager/javascript::;" %}' >
+                  <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                    <p>Will be 23 on April 24th</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href = '{% static "panel/pages/manager/javascript::;" %}' >
+                  <i class="menu-icon fa fa-user bg-yellow"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+                    <p>New phone +1(800)555-1234</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href = '{% static "panel/pages/manager/javascript::;" %}' >
+                  <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+                    <p>nora@example.com</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href = '{% static "panel/pages/manager/javascript::;" %}' >
+                  <i class="menu-icon fa fa-file-code-o bg-green"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+                    <p>Execution time 5 seconds</p>
+                  </div>
+                </a>
+              </li>
+            </ul><!-- /.control-sidebar-menu -->
+
+            <h3 class="control-sidebar-heading">Tasks Progress</h3>
+            <ul class="control-sidebar-menu">
+              <li>
+                <a href = '{% static "panel/pages/manager/javascript::;" %}' >
+                  <h4 class="control-sidebar-subheading">
+                    Custom Template Design
+                    <span class="label label-danger pull-left">70%</span>
+                  </h4>
+                  <div class="progress progress-xxs">
+                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href = '{% static "panel/pages/manager/javascript::;" %}' >
+                  <h4 class="control-sidebar-subheading">
+                    Update Resume
+                    <span class="label label-success pull-left">95%</span>
+                  </h4>
+                  <div class="progress progress-xxs">
+                    <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href = '{% static "panel/pages/manager/javascript::;" %}' >
+                  <h4 class="control-sidebar-subheading">
+                    Laravel Integration
+                    <span class="label label-warning pull-left">50%</span>
+                  </h4>
+                  <div class="progress progress-xxs">
+                    <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href = '{% static "panel/pages/manager/javascript::;" %}' >
+                  <h4 class="control-sidebar-subheading">
+                    Back End Framework
+                    <span class="label label-primary pull-left">68%</span>
+                  </h4>
+                  <div class="progress progress-xxs">
+                    <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                  </div>
+                </a>
+              </li>
+            </ul><!-- /.control-sidebar-menu -->
+
+          </div><!-- /.tab-pane -->
+          <!-- Stats tab content -->
+          <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
+          <!-- Settings tab content -->
+          <div class="tab-pane" id="control-sidebar-settings-tab">
+            <form method="post">
+              <h3 class="control-sidebar-heading">General Settings</h3>
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Report panel usage
+                  <input type="checkbox" class="pull-left" checked>
+                </label>
+                <p>
+                  Some information about this general settings option
+                </p>
+              </div><!-- /.form-group -->
+
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Allow mail redirect
+                  <input type="checkbox" class="pull-left" checked>
+                </label>
+                <p>
+                  Other sets of options are available
+                </p>
+              </div><!-- /.form-group -->
+
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Expose author name in posts
+                  <input type="checkbox" class="pull-left" checked>
+                </label>
+                <p>
+                  Allow the user to show his name in blog posts
+                </p>
+              </div><!-- /.form-group -->
+
+              <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Show me as online
+                  <input type="checkbox" class="pull-left" checked>
+                </label>
+              </div><!-- /.form-group -->
+
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Turn off notifications
+                  <input type="checkbox" class="pull-left">
+                </label>
+              </div><!-- /.form-group -->
+
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Delete chat history
+                  <a href = '{% static "panel/pages/manager/javascript::;" %}'  class="text-red pull-left"><i class="fa fa-trash-o"></i></a>
+                </label>
+              </div><!-- /.form-group -->
+            </form>
+          </div><!-- /.tab-pane -->
+        </div>
+      </aside><!-- /.control-sidebar -->
+      <!-- Add the sidebar's background. This div must be placed
+           immediately after the control sidebar -->
+      <div class="control-sidebar-bg"></div>
+    </div><!-- ./wrapper -->
+
+<!-- jQuery 2.1.4 -->
+<script src = '{% static "panel/plugins/jQuery/jQuery-2.1.4.min.js" %}' ></script>
+<!-- Bootstrap 3.3.4 -->
+<script src = '{% static "panel/bootstrap/js/bootstrap.min.js" %}' ></script>
+<!-- DataTables -->
+<script src = '{% static "panel/plugins/datatables/jquery.dataTables.min.js" %}' ></script>
+<script src = '{% static "panel/plugins/datatables/dataTables.bootstrap.min.js" %}' ></script>
+<!-- SlimScroll -->
+<script src = '{% static "panel/plugins/slimScroll/jquery.slimscroll.min.js" %}' ></script>
+<!-- FastClick -->
+<script src = '{% static "panel/plugins/fastclick/fastclick.min.js" %}' ></script>
+<!-- AdminLTE App -->
+<script src = '{% static "panel/dist/js/app.min.js" %}' ></script>
+<!-- AdminLTE for demo purposes -->
+<script src = '{% static "panel/dist/js/demo.js" %}' ></script>
+    <script src = '{% static "panel/plugins/datatables/dataTables.bootstrap.min.js" %}' ></script>
+<!-- page script -->
+    <script>
+    $(document).ready(function() {
+        // Setup - add a text input to each footer cell
+        $('#table tfoot th').each( function () {
+            var title = $(this).text();
+            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        } );
+     
+        // DataTable
+        var table = $('#table').DataTable();
+     
+        // Apply the search
+        table.columns().every( function () {
+            var that = this;
+     
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+    } );
+    </script>
+  </body>
+</html>

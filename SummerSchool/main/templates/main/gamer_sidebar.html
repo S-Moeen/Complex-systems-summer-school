@@ -1,0 +1,68 @@
+{% load static staticfiles %}
+{% comment %} <li class="treeview">
+    <a href='{% static "panel/pages/manager/#" %}'>
+        <i class="glyphicon glyphicon-user"></i>
+        <span>ویرایش مشخصات موسسه</span>
+    </a>
+    <ul class="treeview-menu">
+        <li class="active">
+            <a href='{%  url "manager:settings" %}'>
+                <i class="glyphicon glyphicon-chevron-left"></i> ویرایش مشخصات</a>
+        </li>
+        <li>
+            <a href='{%  url "manager:change_password" %}'>
+                <i class="glyphicon glyphicon-chevron-left"></i> تغییر رمز عبور مدیریت</a>
+        </li>
+    </ul>
+</li>
+<li>
+    <a href='{% url "manager:transaction_details" pk=last_transaction_id %}' name="transactions">
+        <em class="glyphicon glyphicon-credit-card"></em>
+        <span>تراکنش‌های موسسه</span>
+    </a>
+</li>
+<li>
+    <a href='{% url "manager:employee_users" %}' name="employee">
+        <em class="fa fa-users"></em>
+        <span>کارمندان</span>
+    </a>
+</li>
+<li>
+    <a href='{% url "manager:customer_users" %}' name="customers">
+        <em class="fa fa-users"></em>
+        <span>مشتریان</span>
+    </a>
+</li>
+<li>
+<a href='{% url "manager:create_transaction_type" %}' name="create_type">
+        <em class="glyphicon glyphicon-credit-card"></em>
+        <span> ساخت نوع جدید تراکنش</span>
+    </a>
+</li>
+
+<li>
+    <a href='{% url "manager:transaction_details" pk=last_request_id %}' name="requests">
+        <em class="fa fa-comments"></em>
+        <span>درخواست‌های تاییدنشده</span>
+    </a>
+</li>
+<li class="treeview">
+    <a href='{% static "panel/pages/manager/#" %}'>
+        <i class="fa fa-money"></i>
+        <span name = "my-wallets">کیف پول‌های موسسه</span>
+    </a>
+    <ul class="treeview-menu">
+        <li>
+            <a href='{% url "manager:wallet" "rial" %}'>
+                <i class="glyphicon glyphicon-chevron-left" name="rial-wallet"></i> کیف پول ریال</a>
+        </li>
+        <li>
+            <a href='{% url "manager:wallet" "euro" %}'>
+                <i class="glyphicon glyphicon-chevron-left" name="euro-wallet"></i> کیف پول یورو</a>
+        </li>
+        <li>
+            <a href='{% url "manager:wallet" "dollar" %}'>
+                <i class="glyphicon glyphicon-chevron-left" name="dollar-wallet"></i> کیف پول دلار</a>
+        </li>
+    </ul>
+</li> {% endcomment %}

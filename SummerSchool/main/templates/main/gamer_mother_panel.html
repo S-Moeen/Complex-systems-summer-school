@@ -1,0 +1,24 @@
+{% extends "main/user_panel.html" %}
+{% load static staticfiles %}
+
+
+{% comment %} {% block notifications %}
+'{% url "manager:notifications" %}'
+{% endblock notifications %} {% endcomment %}
+
+{% block content_header_text %}
+<h1>
+    <small>پنل بازیکن</small>
+</h1>
+{% endblock content_header_text %}
+
+{% block content_header_link %}
+<li>
+    <a href="{%url 'main:gamer_dashboard' %}">
+        <i class="fa fa-dashboard"></i> پیشخوان</a>
+</li>
+{% endblock content_header_link %}
+
+{% block side_bar %}
+{% include "main/gamer_sidebar.html" %}
+{% endblock side_bar %}
