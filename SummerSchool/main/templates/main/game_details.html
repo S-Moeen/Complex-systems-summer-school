@@ -13,47 +13,75 @@
 {% block main_content %}
 <section class="content">
   <!-- Small boxes (Stat box) -->
-
-
-
+  <!-- Main row -->
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-lg-4 col-xs-4">
+      مرحله {{form.round_number}}
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">استراتژی مرحلهٔ بعد </h3>
+        </div>
+        <!--box header-->
+        <div class="box-body">
+          <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              {{form.amount.label}}
+              {{form.amount}}
+              {% for error in form.amount.errors%}
+              <span class="text-danger" name="amount-error">{{error}}</span>
+              {% endfor %}
+            </div>
+            <div class="row">
+              <div class="col-md-1">
+                <button type="submit" class="btn btn-primary" name="charge-button">تایید</button>
+              </div>
+              <div class="col-md-3"></div>
+            </div>
+            {% for error in form.non_field_errors %}
+            <span class="text-danger" name="amount-error">{{ error }}</span>
+            {% endfor %}
+          </form>
+        </div>
+        <!--box body-->
+      </div>
+      {% csrf_token %}
+    </div>
+  </div><!-- /.row -->
+  <div class="row">
+    <div class="col-md-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">تراکنش‌ها و درخواست‌های تراکنش</h3>
+          <h3 class="box-title">استراتژی‌های گذشته</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
           <table id="table2" name="transactions-table" class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th style="width: 20px">شناسه</th>
-                <th style="width: 20px">نام</th>
-                <th style="width: 150px">شروع</th>
-                <th style="width: 20px">پایان</th>
-                <th style="width: 10px">تمام شده</th>
+                <th style="width: 20px">شماره راند</th>
+                {% for user in users %}
+                <th style="width: 10px">{{user}}</th>
+                {% endfor %}
               </tr>
             </thead>
             <tbody>
-              {% for game in games %}
+              {% for row in form.strategy_table_data %}
               <tr>
+                {% for cell in row %}
                 <td>
-                  <a href='{% url "main:game" pk=game.id %}'>{{game.id}}</a>
+                  {{cell}}
                 </td>
-                <td>{{game.name}}</td>
-                <td>{{game.start}}</td>
-                <td>{{game.end}}</td>
-                <td>{{game.finished}}</td>
+                {% endfor %}
               </tr>
               {% endfor %}
             </tbody>
             <tfoot>
               <tr>
-                <th style="width: 20px">شناسه</th>
-                <th style="width: 20px">نام</th>
-                <th style="width: 150px">شروع</th>
-                <th style="width: 20px">پایان</th>
-                <th style="width: 10px">تمام شده</th>
+                <th style="width: 20px">شماره راند</th>
+                {% for user in users %}
+                <th style="width: 10px">user</th>
+                {% endfor %}
               </tr>
             </tfoot>
           </table>
@@ -66,10 +94,52 @@
     <!-- /.col -->
   </div>
   <!-- /.row -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">سود گذشته</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <table id="table2" name="transactions-table" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width: 20px">شماره راند</th>
+                {% for user in users %}
+                <th style="width: 10px">{{user}}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in form.profit_table_data %}
+              <tr>
+                {% for cell in row %}
+                <td>
+                  {{cell}}
+                </td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+            <tfoot>
+              <tr>
+                <th style="width: 20px">شماره راند</th>
+                {% for user in users %}
+                <th style="width: 10px">user</th>
+                {% endfor %}
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
 
-  <!-- /.nav-tabs-custom -->
-
-
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
 
 
 

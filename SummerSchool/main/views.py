@@ -6,8 +6,11 @@ from django.views.generic import ListView, DetailView, FormView, RedirectView, T
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from braces.views import GroupRequiredMixin
 from django.urls import reverse_lazy
-from main.models import PricingGame
+from main.models import Pricing_Game
 from django.shortcuts import redirect, render
+from main.Forms import PricingPlayForm
+from django.urls import reverse_lazy
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -21,13 +24,33 @@ def login_success(request):
     return redirect("/gamer_dashboard")
 
 
-class Game_Details(TemplateView, UserPassesTestMixin, LoginRequiredMixin):
+class Game_Details(FormView, UserPassesTestMixin, LoginRequiredMixin):
     template_name = "main/game_details.html"
+    form_class = PricingPlayForm
+    # success_url =
 
     def get_context_data(self, **kwargs):
-        self.game = PricingGame.objects.get(id=pk)
+        print(self.kwargs)
         context = super().get_context_data(**kwargs)
-        context["game"] = self.game
+        users = [user.username for user in User.objects.filter(is_staff=False).order_by("-id")]
+        context["users"] = users
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('main:game', kwargs={'pk': self.kwargs["pk"]})
+
+    def get_form_kwargs(self):
+        kwargs = super(Game_Details, self).get_form_kwargs()
+        # kwargs['user'] = Customer.objects.get(username=self.request.user)
+        kwargs["game"] = Pricing_Game.objects.get(id=self.kwargs["pk"])
+        kwargs["user"] = self.request.user
+        # kwargs["round"] = PricingPlayForm.get_current_round(kwargs["game"].id)
+        return kwargs
+
+    def form_valid(self, form):
+        print('form valid ast ! ')
+        form.update_db()
+        return super().form_valid(form)
 
 
 class Gamer_Dashboard(TemplateView, UserPassesTestMixin, LoginRequiredMixin):
@@ -35,7 +58,7 @@ class Gamer_Dashboard(TemplateView, UserPassesTestMixin, LoginRequiredMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["games"] = PricingGame.objects.all()
+        context["games"] = Pricing_Game.objects.all()
         return context
 
     def test_func(self):

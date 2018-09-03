@@ -39,20 +39,20 @@ def remove_gamer(apps, schema_editor):
 
 
 def add_game(apps, schema_editor):
-    PricingGame = apps.get_model('main', 'PricingGame')
+    PricingGame = apps.get_model('main', 'Pricing_Game')
     Round = apps.get_model('main', 'Round')
     game = PricingGame(name="g1", finished=True, end=datetime.now())
+    game.save()
     round = Round(round_number=1, game=game)
     round.save()
-    game.save()
     game = PricingGame(name="g2")
-    round = Round(round_number=1, game=game)
     game.save()
+    round = Round(round_number=1, game=game)
     round.save()
 
 
 def remove_game(apps, schema_editor):
-    PricingGame = apps.get_model('main', 'PricingGame')
+    PricingGame = apps.get_model('main', 'Pricing_Game')
     games = PricingGame.objects.all()
     games.delete()
 
