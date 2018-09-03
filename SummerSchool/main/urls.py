@@ -16,7 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from main.views import Login, login_success, Gamer_Dashboard, log_out, Game_Details
-
+from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from SummerSchool import settings
 
 urlpatterns = [
     # path('', LandingPageView.as_view(), name='home'),
@@ -27,3 +29,5 @@ urlpatterns = [
     path('<pk>_game', Game_Details.as_view(), name='game'),
 
 ]
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

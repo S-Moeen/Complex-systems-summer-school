@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
+import networkx as nx
+import numpy as np
+import matplotlib.pyplot as plt
 # Create your models here.
 
 
@@ -9,7 +13,17 @@ class Pricing_Game(models.Model):
     name = models.CharField(max_length=100)
     finished = models.BooleanField(default=False)
     players_number = models.IntegerField(default=2)
-    # graph = models.Arr
+    graph = ArrayField(
+        ArrayField(
+            models.IntegerField(blank=True),
+        ),
+    )
+    communication_matrix = ArrayField(
+        ArrayField(
+            models.IntegerField(blank=True),
+        ),
+    )
+    graph_graph = models.ImageField(null=True, upload_to="SummerSchool/photo")
     # def __init__(self, *args, **kwargs):
     #     # self.last_round = Round(round_number=1, game=self)
     #     super().__init__(*args, **kwargs)
@@ -56,11 +70,60 @@ class Round(models.Model):
         return Round(game=self.game, round_number=self.round_number + 1)
 
     def set_profits_and_save(self):
-        actions = Pricing_Game_Data.objects.filter(round=self)
+        actions = Pricing_Game_Data.objects.filter(round=self).order_by('source')
         for action in actions:
-            action.profit = 1
+            print(action.source.id)
+        tax = [action.new_price for action in actions]
+        # for
+        print("tax")
+        print(tax)
+        matrix = np.array(self.game.graph)
+        for i in range(self.game.players_number):
+            matrix[:, i] *= tax[i]
+        graph = nx.from_numpy_matrix(matrix, create_using=nx.DiGraph())
+        pos = nx.spring_layout(graph)
+        labels = dict([((u, v,), d['weight']) for u, v, d in graph.edges(data=True)])
+
+        nx.draw_networkx_edges(graph, pos, width=6, alpha=0.5, edge_color='black')
+        nx.draw_networkx_edge_labels(graph, pos, edge_labels=labels)
+        nx.draw(graph, pos, with_labels=True, node_size=700, node_color="blue")
+        plt.draw()
+        plt.show()
+        plt.savefig("graph.png")
+        self.game.graph_graph = "graph.png"
+        self.game.save()
+        paths = dict(nx.all_pairs_dijkstra_path(graph))
+        print("path")
+        print(paths)
+        profits = [0] * self.game.players_number
+        print("profit")
+        print(profits)
+        size = self.game.players_number
+        value = 100
+        packets = self.game.communication_matrix
+
+        def calc_price(i, j):
+            price = 0
+            for k in paths[i][j][1:len(paths[i][j]) - 1]:
+                price += tax[k]
+            return price
+
+        def calc_profits(packet_value, i, j):
+            price = calc_price(i, j)
+            if price <= packet_value:
+                profits[i] += packet_value - price
+                for k in paths[i][j][1:len(paths[i][j]) - 1]:
+                    profits[k] += tax[k]
+
+        def calc_all():
+            for i in range(size):
+                for j in range(size):
+                    for k in range(packets[j][i]):
+                        calc_profits(value, i, j)
+        calc_all()
+        for action in actions:
+            action.profit = profits[action.source.id-1]
             action.save()
-        print("herher")
 
     def get_strategies_profits(self):
         data = Pricing_Game_Data.objects.filter(round=self).order_by('-source')
