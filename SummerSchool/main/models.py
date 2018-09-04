@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from django.core.files import File
 from pygraphviz import *
-
+from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 
 
@@ -117,7 +117,18 @@ class Round(models.Model):
 
         def calc_price(i, j):
             price = 0
-            for k in paths[i][j][1:len(paths[i][j]) - 1]:
+            print("salam")
+            print(i)
+            print(j)
+            print(paths)
+            print(paths[i][j])
+            print(paths[i][j])
+            temp = len(paths[i][j]) - 1
+            if (temp == 0):
+                temp = 1
+            for k in paths[i][j][1:temp]:
+                print("baba")
+                print(k)
                 price += tax[k]
             return price
 

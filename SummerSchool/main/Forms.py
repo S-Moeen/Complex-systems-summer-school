@@ -6,7 +6,7 @@ from django.core.exceptions import NON_FIELD_ERRORS
 
 class PricingPlayForm(forms.Form):
     # form for charging wallets
-    amount = forms.IntegerField(min_value=0, label='قیمت جدید')
+    amount = forms.IntegerField(min_value=1, label='قیمت جدید')
     current_round = {}
     current_strategy_table_data = {}
     current_profit_table_data = {}

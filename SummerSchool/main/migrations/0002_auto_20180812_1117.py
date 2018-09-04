@@ -80,14 +80,6 @@ def add_game(apps, schema_editor):
         G.add_edge(source, dest, label=params["weight"])
     G.layout()
     G.draw("graph.png")
-    # pos = nx.spring_layout(g)
-    # labels = dict([((u, v,), d['weight']) for u, v, d in g.edges(data=True)])
-    # nx.draw_networkx_edges(g, pos, width=6, alpha=0.5, edge_color='black')
-    # nx.draw_networkx_edge_labels(g, pos, edge_labels=labels)
-    # nx.draw(g, pos, with_labels=True, node_size=700, node_color="blue")
-    # plt.draw()
-    # plt.savefig("graph.png")
-    # # game.graph_graph = "graph.png"
     with open('graph.png', 'rb') as f:   # use 'rb' mode for python3
         data = File(f)
         game.graph_graph.save('graph' + str(game.id) + ".png", data, True)
@@ -117,22 +109,35 @@ def add_game(apps, schema_editor):
     game = PricingGame(name="g3", finished=True, end=datetime.now(), graph=adj, communication_matrix=packets, players_number=4)
     game.save()
     G = AGraph(directed=True)
+    for i in range(size):
+        G.add_node(i, height=2)
     for source, dest, params in g.edges(data=True):
         G.add_edge(source, dest, label=params["weight"])
     G.layout()
     G.draw("graph.png")
-    # plt.clf()
-    # pos = nx.spring_layout(g)
-    # labels = dict([((u, v,), d['weight']) for u, v, d in g.edges(data=True)])
-    # print("edge data")
-    # print(labels)
-    # print(g.edges(data=True))
-    # nx.draw_networkx_edges(g, pos, width=6, alpha=0.5, edge_color='black')
-    # nx.draw_networkx_edge_labels(g, pos, edge_labels=labels)
-    # nx.draw(g, pos, with_labels=True, node_size=700, node_color="blue")
-    # plt.draw()
-    # plt.savefig("graph.png")
-    # game.graph_graph = "graph.png"
+    with open('graph.png', 'rb') as f:   # use 'rb' mode for python3
+        data = File(f)
+        game.graph_graph.save('graph' + str(game.id) + ".png", data, True)
+    round = Round(round_number=1, game=game)
+    round.save()
+
+    size = 10
+    tax = [1 for i in range(size)]
+    packets = [[1 for i in range(size)] for j in range(size)]
+    for i in range(size):
+        packets[i][i] = 0
+    g = nx.erdos_renyi_graph(size, 0.4, directed=True)
+    print(nx.to_numpy_matrix(g).astype(int).tolist())
+    print(packets)
+    game = PricingGame(name="g4", finished=False, end=datetime.now(), graph=nx.to_numpy_matrix(g).astype(int).tolist(), communication_matrix=packets, players_number=size)
+    game.save()
+    G = AGraph(directed=True, pad=0.5, nodesep=1, ranksep=2)
+    for i in range(size):
+        G.add_node(i,height = 0.3, width = 0.3)
+    for source, dest, params in g.edges(data=True):
+        G.add_edge(source, dest, label=1)
+    G.layout()
+    G.draw("graph.png")
     with open('graph.png', 'rb') as f:   # use 'rb' mode for python3
         data = File(f)
         game.graph_graph.save('graph' + str(game.id) + ".png", data, True)
