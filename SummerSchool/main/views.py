@@ -24,7 +24,7 @@ def login_success(request):
     return redirect("/gamer_dashboard")
 
 
-class Game_Details(FormView, UserPassesTestMixin, LoginRequiredMixin):
+class Game_Details(LoginRequiredMixin,  UserPassesTestMixin, FormView):
     template_name = "main/game_details.html"
     form_class = PricingPlayForm
     # success_url =
@@ -33,7 +33,8 @@ class Game_Details(FormView, UserPassesTestMixin, LoginRequiredMixin):
         print(self.kwargs)
         context = super().get_context_data(**kwargs)
         users = [user.username for user in User.objects.filter(is_staff=False).order_by("-id")]
-        context["users"] = users
+        game = Pricing_Game.objects.get(id=self.kwargs["pk"])
+        context["users"] = users[len(users) - game.players_number:]
         return context
 
     def get_success_url(self):
@@ -51,6 +52,9 @@ class Game_Details(FormView, UserPassesTestMixin, LoginRequiredMixin):
         print('form valid ast ! ')
         form.update_db()
         return super().form_valid(form)
+
+    def test_func(self):
+        return not self.request.user.is_staff
 
 
 class Gamer_Dashboard(TemplateView, UserPassesTestMixin, LoginRequiredMixin):

@@ -7,6 +7,8 @@ from datetime import datetime
 import networkx as nx
 import matplotlib.pyplot as plt
 from django.core.files import File
+import numpy as np
+from pygraphviz import *
 
 
 def add_admin(apps, schema_editor):
@@ -73,21 +75,67 @@ def add_game(apps, schema_editor):
     print(packets)
     game = PricingGame(name="g1", finished=True, end=datetime.now(), graph=nx.to_numpy_matrix(g).astype(int).tolist(), communication_matrix=packets, players_number=10)
     game.save()
-    pos = nx.spring_layout(g)
-    labels = dict([((u, v,), d['weight']) for u, v, d in g.edges(data=True)])
-    nx.draw_networkx_edges(g, pos, width=6, alpha=0.5, edge_color='black')
-    nx.draw_networkx_edge_labels(g, pos, edge_labels=labels)
-    nx.draw(g, pos, with_labels=True, node_size=700, node_color="blue")
-    plt.draw()
-    plt.savefig("graph.png")
-    # game.graph_graph = "graph.png"
+    G = AGraph(directed=True)
+    for source, dest, params in g.edges(data=True):
+        G.add_edge(source, dest, label=params["weight"])
+    G.layout()
+    G.draw("graph.png")
+    # pos = nx.spring_layout(g)
+    # labels = dict([((u, v,), d['weight']) for u, v, d in g.edges(data=True)])
+    # nx.draw_networkx_edges(g, pos, width=6, alpha=0.5, edge_color='black')
+    # nx.draw_networkx_edge_labels(g, pos, edge_labels=labels)
+    # nx.draw(g, pos, with_labels=True, node_size=700, node_color="blue")
+    # plt.draw()
+    # plt.savefig("graph.png")
+    # # game.graph_graph = "graph.png"
     with open('graph.png', 'rb') as f:   # use 'rb' mode for python3
         data = File(f)
-        game.graph_graph.save('graph'+str(game.id)+".png", data, True)
+        game.graph_graph.save('graph' + str(game.id) + ".png", data, True)
     round = Round(round_number=1, game=game)
     round.save()
     game = PricingGame(name="g2", graph=nx.to_numpy_matrix(g).tolist(), communication_matrix=packets)
     game.save()
+    round = Round(round_number=1, game=game)
+    round.save()
+
+    size = 4
+    tax = [1, 1, 1, 1]
+    packets = [[0, 0, 0, 1],
+               [0, 0, 0, 0],
+               [0, 0, 0, 0],
+               [1, 0, 0, 0],
+               ]
+    adj = [[0, 1, 1, 0],
+           [1, 0, 0, 1],
+           [1, 0, 0, 1],
+           [0, 1, 1, 0],
+           ]
+    g = nx.from_numpy_matrix(np.array(adj), nx.DiGraph())
+    #  ,graph = nx.to_numpy_matrix(g).astype(int).tolist(), communication_matrix = packets
+    print(nx.to_numpy_matrix(g).astype(int).tolist())
+    print(packets)
+    game = PricingGame(name="g3", finished=True, end=datetime.now(), graph=adj, communication_matrix=packets, players_number=4)
+    game.save()
+    G = AGraph(directed=True)
+    for source, dest, params in g.edges(data=True):
+        G.add_edge(source, dest, label=params["weight"])
+    G.layout()
+    G.draw("graph.png")
+    # plt.clf()
+    # pos = nx.spring_layout(g)
+    # labels = dict([((u, v,), d['weight']) for u, v, d in g.edges(data=True)])
+    # print("edge data")
+    # print(labels)
+    # print(g.edges(data=True))
+    # nx.draw_networkx_edges(g, pos, width=6, alpha=0.5, edge_color='black')
+    # nx.draw_networkx_edge_labels(g, pos, edge_labels=labels)
+    # nx.draw(g, pos, with_labels=True, node_size=700, node_color="blue")
+    # plt.draw()
+    # plt.savefig("graph.png")
+    # game.graph_graph = "graph.png"
+    with open('graph.png', 'rb') as f:   # use 'rb' mode for python3
+        data = File(f)
+        game.graph_graph.save('graph' + str(game.id) + ".png", data, True)
     round = Round(round_number=1, game=game)
     round.save()
 

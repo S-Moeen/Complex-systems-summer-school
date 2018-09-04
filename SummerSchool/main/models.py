@@ -4,6 +4,9 @@ from django.contrib.postgres.fields import ArrayField
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
+from django.core.files import File
+from pygraphviz import *
+
 # Create your models here.
 
 
@@ -78,20 +81,30 @@ class Round(models.Model):
         print("tax")
         print(tax)
         matrix = np.array(self.game.graph)
+        print(matrix)
         for i in range(self.game.players_number):
             matrix[:, i] *= tax[i]
         graph = nx.from_numpy_matrix(matrix, create_using=nx.DiGraph())
-        pos = nx.spring_layout(graph)
-        labels = dict([((u, v,), d['weight']) for u, v, d in graph.edges(data=True)])
-
-        nx.draw_networkx_edges(graph, pos, width=6, alpha=0.5, edge_color='black')
-        nx.draw_networkx_edge_labels(graph, pos, edge_labels=labels)
-        nx.draw(graph, pos, with_labels=True, node_size=700, node_color="blue")
-        plt.draw()
-        plt.show()
-        plt.savefig("graph.png")
-        self.game.graph_graph = "graph.png"
-        self.game.save()
+        print(matrix)
+        G = AGraph(directed=True)
+        for source, dest, params in graph.edges(data=True):
+            G.add_edge(source, dest, label=params["weight"])
+        G.layout()
+        G.draw("graph.png")
+        # plt.clf()
+        # pos = nx.spring_layout(graph)
+        # labels = dict([((u, v,), d['weight']) for u, v, d in graph.edges(data=True)])
+        # print("edge data")
+        # print(labels)
+        # print(graph.edges(data=True))
+        # nx.draw_networkx_edges(graph, pos, width=6, alpha=0.5, edge_color='black')
+        # nx.draw_networkx_edge_labels(graph, pos, edge_labels=labels)
+        # nx.draw(graph, pos, with_labels=True, node_size=700, node_color="blue")
+        # plt.draw()
+        # plt.savefig("graph.png")
+        with open('graph.png', 'rb') as f:   # use 'rb' mode for python3
+            data = File(f)
+            self.game.graph_graph.save('graph'+str(self.game.id)+".png", data, True)
         paths = dict(nx.all_pairs_dijkstra_path(graph))
         print("path")
         print(paths)
